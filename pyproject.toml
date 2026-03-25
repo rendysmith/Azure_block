@@ -1,0 +1,14 @@
+[project]
+name = "prefect-azure-contentunderstanding"
+version = "0.1.0"
+description = "Prefect custom blocks for Azure Content Understanding"
+requires-python = ">=3.9"
+dependencies = [
+    "prefect>=3.0",
+    "azure-ai-contentunderstanding",
+    "azure-identity",
+    "pydantic-settings",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
