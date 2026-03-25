@@ -21,7 +21,7 @@ def analyze_file_flow(file_url: str, analyzer_id: str = "auftrag"):
     )
 
     # Запускаем анализ
-    result = analyzer.run(file_url=file_url)
+    result = await analyzer.run(file_url=file_url)
 
     if result:
         print("\n=== Analysis Result ===")

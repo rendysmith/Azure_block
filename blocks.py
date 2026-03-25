@@ -32,7 +32,7 @@ class ContentUnderstandingCredentials(Block):
     )
     api_version: str = Field(default="2025-11-01")
 
-    def get_client(self) -> ContentUnderstandingClient:
+    async def get_client(self) -> ContentUnderstandingClient:
         if self.key.get_secret_value():
             credential = AzureKeyCredential(self.key.get_secret_value())
         else:
@@ -54,7 +54,7 @@ class ContentUnderstandingAnalyzer(Block):
     credentials: ContentUnderstandingCredentials
     analyzer_id: str = Field(..., description="ID analisator (example: auftrag)")
 
-    def run(
+    async def run(
         self,
         file_url: Optional[str] = None,
         file_data: Optional[Union[bytes, dict]] = None,
@@ -65,7 +65,7 @@ class ContentUnderstandingAnalyzer(Block):
         if not file_url and not file_data:
             raise ValueError("Needed to post file_url or file_data")
 
-        client = self.credentials.get_client()
+        client = await self.credentials.get_client()
 
         try:
             if file_url:
