@@ -22,7 +22,7 @@ class ContentUnderstandingCredentials(Block):
     """Блок с подключением к Azure Content Understanding"""
 
     _block_type_name = "Content Understanding Credentials"
-    _description = "Подключение к сервису Azure Content Understanding"
+    _description = "Connecting to the Azure Content Understanding service"
 
     endpoint: str = Field(
         default=os.getenv("CONTENT_UNDERSTANDING_ENDPOINT", "https://dev-inwa.services.ai.azure.com/")
@@ -49,10 +49,10 @@ class ContentUnderstandingAnalyzer(Block):
     """Блок для анализа файлов через Content Understanding"""
 
     _block_type_name = "Content Understanding Analyzer"
-    _description = "Выполняет анализ документа по URL или данным"
+    _description = "Analyzes a document based on its URL or data"
 
     credentials: ContentUnderstandingCredentials
-    analyzer_id: str = Field(..., description="ID анализатора (например: auftrag)")
+    analyzer_id: str = Field(..., description="ID analisator (example: auftrag)")
 
     def run(
         self,
@@ -63,7 +63,7 @@ class ContentUnderstandingAnalyzer(Block):
         Запускает анализ и возвращает результат в виде dict или None
         """
         if not file_url and not file_data:
-            raise ValueError("Нужно передать file_url или file_data")
+            raise ValueError("Needed to post file_url or file_data")
 
         client = self.credentials.get_client()
 
@@ -73,9 +73,9 @@ class ContentUnderstandingAnalyzer(Block):
             else:
                 # Пока упрощённо поддерживаем только file_url
                 # file_data можно доработать позже
-                raise NotImplementedError("file_data пока не поддерживается. Используй file_url.")
+                raise NotImplementedError("file_data don't support. Use file_url.")
 
-            print(f"🔍 Запуск анализа с помощью '{self.analyzer_id}'...")
+            print(f"🔍 Start analisys with '{self.analyzer_id}'...")
 
             poller = client.begin_analyze(
                 analyzer_id=self.analyzer_id,
@@ -96,7 +96,7 @@ class ContentUnderstandingAnalyzer(Block):
                 }
             )
 
-            print("✅ Анализ успешно завершён")
+            print("✅ The analysis has been successfully completed")
             return result_dict
 
         except AzureError as e:
@@ -109,5 +109,5 @@ class ContentUnderstandingAnalyzer(Block):
             return None
 
         except Exception as e:
-            print(f"❌ Ошибка: {e}")
+            print(f"❌ Error: {e}")
             return None

@@ -4,7 +4,7 @@ from prefect import flow
 from blocks import ContentUnderstandingCredentials, ContentUnderstandingAnalyzer
 
 
-@flow(name="Простой анализ документа")
+@flow(name="Just Docs analyst")
 def analyze_file_flow(file_url: str, analyzer_id: str = "auftrag"):
     # Загружаем или создаём credentials
     try:
@@ -27,7 +27,7 @@ def analyze_file_flow(file_url: str, analyzer_id: str = "auftrag"):
         print("\n=== Analysis Result ===")
         print(json.dumps(result, indent=2, ensure_ascii=False)[:2000] + "\n...")
     else:
-        print("Анализ не удался.")
+        print("Analysis Didn't work.")
 
     return result
 
