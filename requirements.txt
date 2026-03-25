@@ -1,4 +1,0 @@
-prefect>=3.0
-azure-ai-contentunderstanding
-azure-identity
-pydantic-settings
